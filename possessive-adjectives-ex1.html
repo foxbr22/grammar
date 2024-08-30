@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Possessive Adjectives - Exercise 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        .content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .instructions {
+            background-color: #e7f4ff;
+            padding: 15px;
+            border-left: 5px solid #3498db;
+            margin-bottom: 20px;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        .nav-button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .nav-button:hover {
+            background-color: #2980b9;
+        }
+        .correct {
+            color: green;
+            font-weight: bold;
+        }
+        .incorrect {
+            color: red;
+            font-weight: bold;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Possessive Adjectives - Exercise 1</h1>
+    </header>
+    <div class="content">
+        <div class="instructions">
+            <h2>How to do the activities</h2>
+            <p>Follow the instructions in each exercise. After finishing the exercise, once you get everything right, it's EXTREMELY IMPORTANT that you go back and read all the sentences ALOUD.</p>
+            <p>You will be tempted to move to the next activity, because your brain wants to feel good by the quantity of activities done. However, we are not here to make your brain feel good, but to help you learn English.</p>
+            <p>You will only feel comfortable with what you learn once you are able to express it naturally and that only comes with repetition. Remember, understanding the rule is not the same as being able to apply it. Different parts of the brain. Both need specific practice.</p>
+            <p>So, once you have finished the activity, don't forget to read them aloud. Do that for EVERY EXERCISE IN THIS WEBSITE.</p>
+            <p>Good luck!</p>
+        </div>
+
+        <h2>Choose the best answer for the sentences below</h2>
+        <form id="quiz-form">
+            <!-- Questions will be dynamically inserted here -->
+        </form>
+        <button onclick="checkAnswers()">Check Answers</button>
+        <div id="results"></div>
+
+        <div class="navigation">
+            <a href="possessive-adjectives.html" class="nav-button">Back to Lesson</a>
+        </div>
+    </div>
+
+    <div id="perfectScoreModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Congratulations!</h2>
+            <p>You got everything right! Now, don’t forget to practice your speaking by reading the sentences aloud.</p>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "John loves to play with ___ dog.",
+                options: ["his", "him", "their", "its"],
+                correct: 0
+            },
+            {
+                question: "Maria forgot ___ book at home.",
+                options: ["hers", "her", "their", "she"],
+                correct: 1
+            },
+            {
+                question: "The cat is licking ___ paw.",
+                options: ["his", "hers", "its", "their"],
+                correct: 2
+            },
+            {
+                question: "The children are playing with ___ toys.",
+                options: ["their", "theirs", "our", "his"],
+                correct: 0
+            },
+            {
+                question: "She lost ___ keys in the park.",
+                options: ["hers", "her", "his", "its"],
+                correct: 1
+            },
+            {
+                question: "The teacher asked us to submit ___ homework.",
+                options: ["our", "ours", "we", "my"],
+                correct: 0
+            },
+            {
+                question: "I always wear ___ jacket when it’s cold.",
+                options: ["mine", "my", "hers", "his"],
+                correct: 1
+            },
+            {
+                question: "They brought ___ own lunch to the picnic.",
+                options: ["their", "theirs", "them", "her"],
+                correct: 0
+            },
+            {
+                question: "He forgot to bring ___ backpack to school.",
+                options: ["his", "him", "her", "theirs"],
+                correct: 0
+            },
+            {
+                question: "We must complete ___ project by tomorrow.",
+                options: ["our", "ours", "their", "his"],
+                correct: 0
+            },
+            {
+                question: "The baby is crying because ___ toy is broken.",
+                options: ["his", "him", "hers", "its"],
+                correct: 3
+            },
+            {
+                question: "My brother and I are cleaning ___ room.",
+                options: ["ours", "our", "their", "his"],
+                correct: 1
+            },
+            {
+                question: "She needs to water ___ plants every day.",
+                options: ["her", "hers", "his", "them"],
+                correct: 0
+            },
+            {
+                question: "The team won ___ first game of the season.",
+                options: ["their", "theirs", "its", "his"],
+                correct: 0
+            },
+            {
+                question: "I borrowed ___ pen to write a note.",
+                options: ["his", "her", "their", "mine"],
+                correct: 1
+            },
+            {
+                question: "The dog is sleeping in ___ bed.",
+                options: ["its", "it", "their", "hers"],
+                correct: 0
+            },
+            {
+                question: "We left ___ car keys on the kitchen table.",
+                options: ["our", "ours", "his", "their"],
+                correct: 0
+            },
+            {
+                question: "He likes to ride ___ bike to school.",
+                options: ["his", "him", "their", "hers"],
+                correct: 0
+            },
+            {
+                question: "She put ___ phone on the charger.",
+                options: ["her", "hers", "his", "them"],
+                correct: 0
+            },
+            {
+                question: "The boys are playing with ___ soccer ball.",
+                options: ["their", "theirs", "his", "hers"],
+                correct: 0
+            },
+            {
+                question: "I lost ___ wallet at the mall.",
+                options: ["my", "mine", "his", "their"],
+                correct: 0
+            },
+            {
+                question: "They are washing ___ hands before dinner.",
+                options: ["their", "theirs", "his", "her"],
+                correct: 0
+            },
+            {
+                question: "He loves ___ family very much.",
+                options: ["his", "him", "her", "theirs"],
+                correct: 0
+            },
+            {
+                question: "She forgot ___ umbrella at the office.",
+                options: ["her", "hers", "his", "its"],
+                correct: 0
+            },
+            {
+                question: "We should respect ___ elders.",
+                options: ["our", "ours", "their", "her"],
+                correct: 0
+            },
+            {
+                question: "The child is drawing on ___ paper.",
+                options: ["his", "hers", "its", "their"],
+                correct: 0
+            },
+            {
+                question: "She can’t find ___ shoes.",
+                options: ["her", "hers", "his", "mine"],
+                correct: 0
+            },
+            {
+                question: "He enjoys reading ___ books on the weekend.",
+                options: ["his", "him", "hers", "theirs"],
+                correct: 0
+            },
+            {
+                question: "They parked ___ car in the garage.",
+                options: ["their", "theirs", "his", "our"],
+                correct: 0
+            },
+            {
+                question: "I couldn’t reach ___ parents on the phone.",
+                options: ["my", "mine", "their", "hers"],
+                correct: 0
+            },
+            {
+                question: "We should take care of ___ planet.",
+                options: ["our", "ours", "their", "his"],
+                correct: 0
+            },
+            {
+                question: "The dog is wagging ___ tail.",
+                options: ["its", "it", "their", "his"],
+                correct: 0
+            },
+            {
+                question: "She loves ___ new dress.",
+                options: ["her", "hers", "his", "mine"],
+                correct: 0
+            },
+            {
+                question: "They are decorating ___ house for the holidays.",
+                options: ["their", "theirs", "his", "our"],
+                correct: 0
+            },
+            {
+                question: "I left ___ shoes at the door.",
+                options: ["my", "mine", "her", "theirs"],
+                correct: 0
+            },
+            {
+                question: "He always cleans ___ room before going out.",
+                options: ["his", "him", "hers", "theirs"],
+                correct: 0
+            },
+            {
+                question: "She wrote ___ name on the notebook.",
+                options: ["her", "hers", "his", "theirs"],
+                correct: 0
+            },
+            {
+                question: "The students finished ___ assignment early.",
+                options: ["their", "theirs", "our", "his"],
+                correct: 0
+            },
+            {
+                question: "We should invite ___ friends to the party.",
+                options: ["our", "ours", "their", "hers"],
+                correct: 0
+            },
+            {
+                question: "He keeps ___ money in a safe place.",
+                options: ["his", "him", "hers", "theirs"],
+                correct: 0
+            },
+            {
+                question: "She’s taking care of ___ brother while their parents are away.",
+                options: ["her", "hers", "his", "mine"],
+                correct: 0
+            },
+            {
+                question: "They celebrated ___ anniversary last week.",
+                options: ["their", "theirs", "his", "our"],
+                correct: 0
+            },
+            {
+                question: "I can’t find ___ keys.",
+                options: ["my", "mine", "hers", "theirs"],
+                correct: 0
+            },
+            {
+                question: "He enjoys ___ morning coffee.",
+                options: ["his", "him", "hers", "theirs"],
+                correct: 0
+            },
+            {
+                question: "We need to finish ___ project today.",
+                options: ["our", "ours", "their", "his"],
+                correct: 0
+            },
+            {
+                question: "She loves spending time with ___ family.",
+                options: ["her", "hers", "his", "theirs"],
+                correct: 0
+            },
+            {
+                question: "They want to sell ___ house next year.",
+                options: ["their", "theirs", "his", "ours"],
+                correct: 0
+            },
+            {
+                question: "I need to charge ___ phone.",
+                options: ["my", "mine", "her", "theirs"],
+                correct: 0
+            },
+            {
+                question: "He’s worried about ___ grades this semester.",
+                options: ["his", "him", "hers", "theirs"],
+                correct: 0
+            },
+            {
+                question: "She took off ___ jacket when she got home.",
+                options: ["her", "hers", "his", "mine"],
+                correct: 0
+            }
+        ];
+
+        function createQuiz() {
+            const form = document.getElementById('quiz-form');
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.innerHTML = `
+                    <p>${index + 1}. ${q.question}</p>
+                    <div class="options">
+                        ${q.options.map((option, i) => `
+                            <label>
+                                <input type="radio" name="q${index}" value="${i}">
+                                ${String.fromCharCode(97 + i)}) ${option}
+                            </label>
+                        `).join('')}
+                    </div>
+                `;
+                form.appendChild(questionDiv);
+            });
+        }
+
+        function checkAnswers() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                const questionDiv = document.querySelectorAll('.question')[index];
+                const options = questionDiv.querySelectorAll('label');
+                
+                options.forEach((option, i) => {
+                    option.classList.remove('correct', 'incorrect');
+                    if (i === q.correct) {
+                        option.classList.add('correct');
+                    }
+                });
+
+                if (selected) {
+                    if (parseInt(selected.value) === q.correct) {
+                        score++;
+                    } else {
+                        options[parseInt(selected.value)].classList.add('incorrect');
+                    }
+                }
+            });
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = `You got ${score} out of ${questions.length} correct!`;
+
+            if (score === questions.length) {
+                showPerfectScoreModal();
+            }
+        }
+
+        function showPerfectScoreModal() {
+            const modal = document.getElementById('perfectScoreModal');
+            const span = document.getElementsByClassName('close')[0];
+
+            if (modal && span) {
+                modal.style.display = "block";
+
+                span.onclick = function() {
+                    modal.style.display = "none";
+                }
+
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                }
+            } else {
+                console.error('Modal or close button not found');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', createQuiz);
+    </script>
+</body>
+</html>
